@@ -1,1 +1,4 @@
 env
+inputs
+.env
+__pycache__
