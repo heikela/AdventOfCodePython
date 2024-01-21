@@ -16,11 +16,7 @@ def get_input(year: int, day: int) -> str:
             raise ValueError("No session cookie found")
         session.cookies.set("session", os.getenv("SESSION_COOKIE"))
         response = session.get(f"https://adventofcode.com/{year}/day/{day}/input")
-        if response.status_code != 200:
-            print(response.text)
-            print(response.status_code)
-            print(response.headers)
-            raise ValueError(f"Failed to download input for year {year} day {day}")
+        response.raise_for_status()
         os.makedirs(f"inputs/{year}", exist_ok=True)
         with open(f"inputs/{year}/{day}.txt", "w") as f:
             f.write(response.text)
