@@ -1,4 +1,4 @@
-import common.inputs
+from common.inputs import get_input
 from collections import ChainMap
 from typing import Dict
 
@@ -39,7 +39,7 @@ def line_to_number(line: str, digits: Dict[str, int]) -> int:
     return 10 * first_digit(line, digits) + last_digit(line, digits)
 
 def main():
-    input = common.inputs.get_input(2023, 1)
+    input = get_input(2023, 1)
     part1 = sum(line_to_number(line, digits) for line in input)
     print("part 1: %d" % part1)
     part2 = sum(line_to_number(line, all_digits) for line in input)

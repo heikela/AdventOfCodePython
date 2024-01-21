@@ -1,4 +1,4 @@
-import common.inputs
+from common.inputs import get_input
 from collections import namedtuple, Counter
 
 Game = namedtuple('Game', ['id', 'counts'])
@@ -24,7 +24,7 @@ def power(game: Game) -> int:
     return game.counts['red'] * game.counts['green'] * game.counts['blue']
 
 def main():
-    input = common.inputs.get_input(2023, 2)
+    input = get_input(2023, 2)
     games = [parse_line(line) for line in input]
     part1 = sum(game.id for game in games if is_valid_part1(game))
     print("part 1: %d" % part1)
