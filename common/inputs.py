@@ -49,7 +49,7 @@ def get_test_snippet(year: int, day: int, block: int) -> str:
         session = _get_session()
         response = session.get(f"https://adventofcode.com/{year}/day/{day}")
         response.raise_for_status()
-        soup = BeautifulSoup(response.text)
+        soup = BeautifulSoup(response.text, "html.parser")
         code_in_pre = [tag for tag in soup.find_all("code")
                        if tag.parent.name == "pre"]
         snippet = code_in_pre[block].text
