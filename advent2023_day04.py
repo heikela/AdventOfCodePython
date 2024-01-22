@@ -16,11 +16,14 @@ def parse_cards(lines):
         cards.append(card)
     return cards
 
-def card_value(card: Card):
-    """Return the value of a card"""
-    correct_count = len(set(card.numbers) & set(card.correct))
+def count_correct(card: Card):
+    """Count correct numbers in a card"""
+    return len(set(card.numbers) & set(card.correct))
+
+def card_points(card: Card):
+    """Return the points for the card in part 1"""
     result = 0
-    for i in range(correct_count):
+    for i in range(count_correct(card)):
         if result == 0:
             result = 1
         else:
@@ -30,7 +33,7 @@ def card_value(card: Card):
 def part1(input: list[str]):
     """Solve part 1"""
     cards = parse_cards(input)
-    return sum(card_value(card) for card in cards)
+    return sum(card_points(card) for card in cards)
 
 def main():
     """Main entry point"""
