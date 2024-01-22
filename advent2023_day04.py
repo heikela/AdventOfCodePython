@@ -35,10 +35,25 @@ def part1(input: list[str]):
     cards = parse_cards(input)
     return sum(card_points(card) for card in cards)
 
+def part2(input: list[str]):
+    """Solve part 2"""
+    cards = parse_cards(input)
+    counts = [1] * len(cards)
+    for i, card in enumerate(cards):
+        correct = count_correct(card)
+        for j in range(i + 1, i + correct + 1):
+            if j < len(cards):
+                counts[j] += counts[i]
+    return sum(counts)
+
 def main():
     """Main entry point"""
-    print(f"part 1 example: {part1(get_test_snippet(2023, 4, 0))}")
-    print(f"part 1: {part1(get_input(2023, 4))}")
+    example = get_test_snippet(2023, 4, 0)
+    print(f"part 1 example: {part1(example)}")
+    print(f"part 2 example: {part2(example)}")
+    input = get_input(2023, 4)
+    print(f"part 1: {part1(input)}")
+    print(f"part 2: {part2(input)}")
 
 if __name__ == "__main__":
     main()
