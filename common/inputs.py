@@ -35,7 +35,7 @@ def get_input(year: int, day: int) -> str:
         with open(file_name, "w") as f:
             f.write(response.text)
     with open(file_name) as f:
-        return f.readlines()
+        return [line.rstrip("\n\r") for line in f.readlines()]
 
 def get_test_snippet(year: int, day: int, block: int) -> str:
     """Get a particular test snippet from a task description.
@@ -57,4 +57,4 @@ def get_test_snippet(year: int, day: int, block: int) -> str:
         with open(file_name, "w") as f:
             f.write(snippet)
     with open(file_name) as f:
-        return f.readlines()
+        return [line.rstrip("\n\r") for line in f.readlines()]

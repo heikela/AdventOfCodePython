@@ -104,7 +104,7 @@ class Schematic():
         current_digits = []
         digit_positions = []
         for y, line in enumerate(lines):
-            for x, char in enumerate(line.strip("\n\r")):
+            for x, char in enumerate(line):
                 if char in "0123456789":
                     current_digits.append(char)
                     digit_positions.append(Point2D(x, y))
