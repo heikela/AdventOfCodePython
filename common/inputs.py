@@ -57,4 +57,4 @@ def get_test_snippet(year: int, day: int, block: int) -> str:
         with open(file_name, "w") as f:
             f.write(snippet)
     with open(file_name) as f:
-        return f.read()
+        return f.readlines()
