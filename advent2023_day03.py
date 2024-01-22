@@ -41,6 +41,10 @@ class Schematic():
             """Returns whether this element is a symbol"""
             return False
 
+        def is_gear(self):
+            """Returns whether this element is a gear"""
+            return False
+
     class Number(Element):
         """A number in the schematic"""
         def __init__(
@@ -71,12 +75,30 @@ class Schematic():
         def is_symbol(self):
             return True
 
+        def is_gear(self):
+            """Returns whether this symbol is a gear"""
+            if self.symbol != '*':
+                return False
+            return len([n for n in self.neighbours()
+                       if n.is_part_number()]) == 2
+
+        def gear_ratio(self):
+            """Returns the gear ratio of this gear"""
+            if not self.is_gear():
+                raise ValueError("Not a gear")
+            gear_numbers = [n for n in self.neighbours() if n.is_part_number()]
+            return gear_numbers[0].value * gear_numbers[1].value
+
         def __repr__(self):
             return f"Symbol({self.positions[0]} : {self.symbol})"
 
     def part_number_sum(self):
         """Returns the sum of all part numbers"""
         return sum(n.value for n in self.elements if n.is_part_number())
+
+    def gear_ratio_sum(self):
+        """Returns the sum of all gear ratios"""
+        return sum(n.gear_ratio() for n in self.elements if n.is_gear())
 
     def _parse(self, lines):
         current_digits = []
@@ -111,9 +133,13 @@ class Schematic():
 
 def main():
     snippet = get_test_snippet(2023, 3, 0)
-    print(f"Part 1 example: {Schematic(snippet).part_number_sum()}")
+    example = Schematic(snippet)
+    print(f"Part 1 example: {example.part_number_sum()}")
+    print(f"Part 2 example: {example.gear_ratio_sum()}")
     input = get_input(2023, 3)
-    print(f"Part 1: {Schematic(input).part_number_sum()}")
+    problem = Schematic(input)
+    print(f"Part 1: {problem.part_number_sum()}")
+    print(f"Part 2: {problem.gear_ratio_sum()}")
 
 if __name__ == '__main__':
     main()
