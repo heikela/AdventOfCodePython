@@ -1,6 +1,7 @@
 from common.inputs import get_input, get_test_snippet
 from common.point import Point2D
 
+
 class Schematic():
     """A representation of the schematic in the puzzle"""
     def __init__(self, lines):
@@ -28,7 +29,7 @@ class Schematic():
             positions = set()
             for pos in self.positions:
                 for neighbour in pos.neighbours():
-                    if not neighbour in self.positions:
+                    if neighbour not in self.positions:
                         positions.add(neighbour)
             return positions
 
@@ -58,9 +59,6 @@ class Schematic():
         def is_part_number(self):
             """Returns whether this number is a part number"""
             return any(n.is_symbol() for n in self.neighbours())
-
-        def __repr__(self):
-            return f"Number({self.positions[0]}-{self.positions[-1]} : {self.value})"
 
     class Symbol(Element):
         """A symbol in the schematic"""
@@ -131,6 +129,7 @@ class Schematic():
             self.elemnents_py_pos[pos] = element
         self.elements.append(element)
 
+
 def main():
     snippet = get_test_snippet(2023, 3, 0)
     example = Schematic(snippet)
@@ -140,6 +139,7 @@ def main():
     problem = Schematic(input)
     print(f"Part 1: {problem.part_number_sum()}")
     print(f"Part 2: {problem.gear_ratio_sum()}")
+
 
 if __name__ == '__main__':
     main()

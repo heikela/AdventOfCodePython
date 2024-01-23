@@ -3,6 +3,7 @@ from collections import namedtuple, Counter
 
 Game = namedtuple('Game', ['id', 'counts'])
 
+
 def parse_line(line: str) -> Game:
     parts = line.split(':')
     id = int(parts[0].split()[1])
@@ -15,13 +16,17 @@ def parse_line(line: str) -> Game:
             counts = counts | sample_counter
     return Game(id, counts)
 
+
 part1_bag = Counter(red=12, green=13, blue=14)
+
 
 def is_valid_part1(game: Game) -> bool:
     return game.counts <= part1_bag
 
+
 def power(game: Game) -> int:
     return game.counts['red'] * game.counts['green'] * game.counts['blue']
+
 
 def main():
     input = get_input(2023, 2)
@@ -30,6 +35,7 @@ def main():
     print("part 1: %d" % part1)
     part2 = sum(power(game) for game in games)
     print("part 2: %d" % part2)
+
 
 if __name__ == '__main__':
     main()

@@ -3,6 +3,7 @@ from collections import namedtuple
 
 Card = namedtuple("Card", ["index", "correct", "numbers"])
 
+
 def parse_cards(lines):
     """Parse the cards from the input"""
     cards = []
@@ -16,9 +17,11 @@ def parse_cards(lines):
         cards.append(card)
     return cards
 
+
 def count_correct(card: Card):
     """Count correct numbers in a card"""
     return len(set(card.numbers) & set(card.correct))
+
 
 def card_points(card: Card):
     """Return the points for the card in part 1"""
@@ -30,10 +33,12 @@ def card_points(card: Card):
             result *= 2
     return result
 
+
 def part1(input: list[str]):
     """Solve part 1"""
     cards = parse_cards(input)
     return sum(card_points(card) for card in cards)
+
 
 def part2(input: list[str]):
     """Solve part 2"""
@@ -46,6 +51,7 @@ def part2(input: list[str]):
                 counts[j] += counts[i]
     return sum(counts)
 
+
 def main():
     """Main entry point"""
     example = get_test_snippet(2023, 4, 0)
@@ -54,6 +60,7 @@ def main():
     input = get_input(2023, 4)
     print(f"part 1: {part1(input)}")
     print(f"part 2: {part2(input)}")
+
 
 if __name__ == "__main__":
     main()

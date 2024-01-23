@@ -5,10 +5,12 @@ from bs4 import BeautifulSoup
 
 _requests_session = None
 
+
 def _get_session() -> requests.Session:
     """Get a requests session object.
-    
-    Uses a pre-existing session object if available, otherwise creates a new one.
+
+    Uses a pre-existing session object if available,
+    otherwise creates a new one.
     """
     global _requests_session
     if _requests_session is None:
@@ -20,16 +22,19 @@ def _get_session() -> requests.Session:
         _requests_session.cookies.set("session", os.getenv("SESSION_COOKIE"))
     return _requests_session
 
+
 def get_input(year: int, day: int) -> str:
     """Get the input for a given year and day.
 
-    Uses a predownloaded input file if available, otherwise downloads the input.
+    Uses a predownloaded input file if available,
+    otherwise downloads the input.
     """
     file_name = f"inputs/{year}/{day}.txt"
     if not os.path.exists(file_name):
         # Download the input
         session = _get_session()
-        response = session.get(f"https://adventofcode.com/{year}/day/{day}/input")
+        input_url = f"https://adventofcode.com/{year}/day/{day}/input"
+        response = session.get(input_url)
         response.raise_for_status()
         os.makedirs(f"inputs/{year}", exist_ok=True)
         with open(file_name, "w") as f:
@@ -37,11 +42,13 @@ def get_input(year: int, day: int) -> str:
     with open(file_name) as f:
         return [line.rstrip("\n\r") for line in f.readlines()]
 
+
 def get_test_snippet(year: int, day: int, block: int) -> str:
     """Get a particular test snippet from a task description.
 
     Caches on disk and uses a cached file if available.
-    The blocks are defined as anything between <pre><code> and </code></pre> tags.
+    The blocks are defined as anything between <pre><code>
+    and </code></pre> tags.
     The first block is block 0.
     """
     file_name = f"inputs/{year}/{day}_test_{block}.txt"
